@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 3 Experimentation</title>
+    <!-- Load Vue.js from a specific version -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.13/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Conditional Rendering Examples -->
+        <h2>Conditional Rendering</h2>
+
+        <div>
+            <button @click="welcome">welcome</button>
+        </div>
+
+        <div>
+            <p v-if="showGreeting">Hy, everyone</p>
+            <p v-else>enjoy your day</p>
+        </div>
+
+        <!-- v-show -->
+        <div>
+            <button @click="EnterParagraph">Enter Paragraph</button>
+        </div>
+
+        <div>
+            <p v-show="showParagraph">This paragraph can be shown or hidden using v-show.</p>
+        </div>
+
+        <!-- v-for -->
+        <h2>Displaying Items with v-for</h2>
+        <ul>
+            <li v-for="(item, index) in items" :key="index">{{ item }}</li>
+        </ul>
+        
+        <!-- v-if with v-for -->
+        <h2>Conditional Rendering within a Loop</h2>
+        <ul>
+            <li v-for="item in filteredItems" :key="item">
+                <span v-if="item !== 'Item 2'">{{ item }}</span>
+                <span v-else>This item is hidden.</span>
+            </li>
+        </ul>
+
+        <!-- Form Input Handling: v-model -->
+        <h2>Form Input Handling: v-model</h2>
+        <div>
+            <label for="jack">Select your interests:</label>
+        </div>
+        <div>
+            <input type="checkbox" id="music" value="Music" v-model="selectedInterests">
+            <label for="music">Music</label>
+        </div>
+        <div>
+            <input type="checkbox" id="sports" value="Sports" v-model="selectedInterests">
+            <label for="sports">Sports</label>
+        </div>
+        <div>
+            <input type="checkbox" id="movies" value="Movies" v-model="selectedInterests">
+            <label for="movies">Movies</label>
+        </div>
+        <div>Your selected interests: {{ selectedInterests }}</div>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    showGreeting: true,
+                    showParagraph: true,
+                    items: ['Item 1', 'Item 2', 'Item 3'],
+                    selectedInterests: []
+                }
+            },
+            methods: {
+                toggleGreeting() {
+                    this.showGreeting = !this.showGreeting;
+                },
+                toggleParagraph() {
+                    this.showParagraph = !this.showParagraph;
+                }
+            },
+            computed: {
+                filteredItems() {
+                    return this.items.filter(item => item !== 'Item 2');
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
